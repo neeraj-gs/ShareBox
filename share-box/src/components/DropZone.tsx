@@ -2,8 +2,10 @@
 
 import { cn } from '@/lib/utils';
 import { useUser } from '@clerk/nextjs';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useState } from 'react';
 import Dropzone from 'react-dropzone'
+import { db } from '../../firebase';
 
 const DropZone = () => {
 
@@ -31,6 +33,17 @@ const DropZone = () => {
         setLoading(true)
 
         //do uploading to firebase 
+        // doceumetn root in our databse  users/userId/files -- all docs are added to this path
+
+        const docRef = await addDoc(collection(db,`users/${user.id}/files`),{
+            userId:user.id,
+            filename:selectedFile.name,
+            fullname:user.fullName,
+            profileImg:user.imageUrl,
+            timestamp:serverTimestamp(),
+            type:selectedFile.type,
+            size:selectedFile.size
+        })
 
         setLoading(false)
     }
@@ -40,7 +53,7 @@ const DropZone = () => {
 
   return (
     <div>
-        <Dropzone minSize={0} maxSize={maxsize} onDrop={acceptedFiles => console.log(acceptedFiles)}>
+        <Dropzone minSize={0} maxSize={maxsize} onDrop={onDrop}>
   {({getRootProps, getInputProps,isDragActive,isDragReject,fileRejections,}) => {
 
     const isFileTooLarge = fileRejections.length >0 && fileRejections[0].file.size > maxsize
