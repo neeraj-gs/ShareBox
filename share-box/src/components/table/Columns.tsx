@@ -1,8 +1,10 @@
 "use client"
 
+import { COLOR_EXTENSION_MAP } from "@/constant"
 import { FileType } from "@/typings"
 import { ColumnDef } from "@tanstack/react-table"
 import prettyBytes from "pretty-bytes"
+import {FileIcon,defaultStyles} from 'react-file-icon'
 
 export const columns: ColumnDef<FileType>[] = [
     {
@@ -18,7 +20,7 @@ export const columns: ColumnDef<FileType>[] = [
                         extension={extension}
                         labelColor={COLOR_EXTENSION_MAP[extension]}
                         // @ts-ignore
-                        {...defaultSyles[extension]}
+                        {...defaultStyles[extension]}
                     />
                 </div>
             )
