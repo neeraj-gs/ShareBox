@@ -16,3 +16,5 @@ const firebaseConfig = {
   //we initlaise only once
   const db = getFirestore(app)
   const storage = getStorage(app)
+
+  export {db,storage};
