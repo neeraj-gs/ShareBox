@@ -7,5 +7,5 @@ ShareBox
         Clerk Auth
         Tailwind CSS
         ShadCN
-        FireBase
+        FireBase Storage
         TypeScript
