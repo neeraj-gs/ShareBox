@@ -1,8 +1,11 @@
-import React from 'react'
+import { auth } from "@clerk/nextjs"
 
 const DashBoardpage = () => {
+    const {userId} = auth();
   return (
-    <div>DashBoardpage</div>
+    <main>
+        
+    </main>
   )
 }
 
