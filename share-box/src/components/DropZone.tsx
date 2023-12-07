@@ -4,6 +4,21 @@ import { cn } from '@/lib/utils';
 import Dropzone from 'react-dropzone'
 
 const DropZone = () => {
+
+    const onDrop = (acceptedFiles:File[])=>{
+        acceptedFiles.forEach((file)=>{
+            const reader = new FileReader();
+
+            reader.onabort = () => console.log("File Reading was Aborted");
+            reader.onerror = () => console.log("File Reading was Failed");
+            reader.onload  = () => async()=>{
+                await uploadPost(file);
+            }
+            reader.readAsArrayBuffer(file); //as we read the files all the onload is triggered off
+        })
+    }
+
+
     const maxsize = 20971520;
 
   return (
