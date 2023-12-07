@@ -1,4 +1,5 @@
 import DropZone from "@/components/DropZone";
+import TableWrapper from "@/components/table/TableWrapper";
 import { db } from "@/firebase";
 import { FileType } from "@/typings";
 import { auth } from "@clerk/nextjs";
@@ -25,8 +26,18 @@ const DashBoardpage = async() => {
 
 
   return (
-    <main>
+    <main className="border-t">
         <DropZone />
+
+
+        <section className="container space-y-5">
+          <h2 className="font-extrabold">All Stored Files</h2>
+
+          <div>
+            {/* Table Wrapper  */}
+            <TableWrapper skeletonFiles={skeletonFiles}  />
+          </div>
+        </section>
     </main>
   )
 }
