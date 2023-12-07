@@ -1,9 +1,15 @@
 "use client"
 
 import { cn } from '@/lib/utils';
+import { useUser } from '@clerk/nextjs';
+import { useState } from 'react';
 import Dropzone from 'react-dropzone'
 
 const DropZone = () => {
+
+
+    const [loading,setLoading] = useState(false)
+    const {isLoaded,isSignedIn,user} = useUser();
 
     const onDrop = (acceptedFiles:File[])=>{
         acceptedFiles.forEach((file)=>{
@@ -16,6 +22,17 @@ const DropZone = () => {
             }
             reader.readAsArrayBuffer(file); //as we read the files all the onload is triggered off
         })
+    }
+
+    const uploadPost = async (selectedFile:File) => {
+        if(loading) return;
+        if(!user) return;
+
+        setLoading(true)
+
+        //do uploading to firebase 
+
+        setLoading(false)
     }
 
 
