@@ -2,10 +2,11 @@
 
 import { cn } from '@/lib/utils';
 import { useUser } from '@clerk/nextjs';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { useState } from 'react';
 import Dropzone from 'react-dropzone'
-import { db } from '../../firebase';
+import { db, storage } from '../../firebase';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 const DropZone = () => {
 
@@ -44,6 +45,16 @@ const DropZone = () => {
             type:selectedFile.type,
             size:selectedFile.size
         })
+
+        const imageRef = ref(storage,`users/${user.id}/files/${docRef.id}`)
+
+        await uploadBytes(imageRef,selectedFile).then(async(snapshot)=>{
+            const downURL = await getDownloadURL(imageRef);
+
+            await updateDoc(doc(db,"users",user.id,"files",docRef.id),{
+                downURL:downURL
+            })
+        }) 
 
         setLoading(false)
     }
