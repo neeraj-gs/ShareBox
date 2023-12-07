@@ -1,0 +1,11 @@
+ShareBox 
+    A Place to add your fiels store them and share it woth other people, can access it anywhere adna at antime
+
+    TechStack:
+        NextJs
+        React
+        Clerk Auth
+        Tailwind CSS
+        ShadCN
+        FireBase
+        TypeScript
