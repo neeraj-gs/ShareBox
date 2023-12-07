@@ -5,7 +5,7 @@ import { useUser } from '@clerk/nextjs';
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { useState } from 'react';
 import Dropzone from 'react-dropzone'
-import { db, storage } from '../../firebase';
+import { db, storage } from '../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 const DropZone = () => {
@@ -20,7 +20,7 @@ const DropZone = () => {
 
             reader.onabort = () => console.log("File Reading was Aborted");
             reader.onerror = () => console.log("File Reading was Failed");
-            reader.onload  = () => async()=>{
+            reader.onload  = async()=>{
                 await uploadPost(file);
             }
             reader.readAsArrayBuffer(file); //as we read the files all the onload is triggered off
